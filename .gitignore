@@ -1,0 +1,7 @@
+# Arquivos de vídeo (gerados pelo CI)
+*.mp4
+video_separelo.mp4
+
+# Diretórios de build
+node_modules/
+tmp/
