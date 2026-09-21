@@ -313,8 +313,9 @@ for (let f = 0; f < TOTAL_FRAMES; f++) {
 console.log(`\n✓ ${TOTAL_FRAMES} frames em ${FRAMES_DIR}\n`);
 
 // Codificar
-const OUTPUT = "/home/tiago/septembro-amarelo/video_separelo.mp4";
-const AUDIO = "/home/tiago/septembro-amarelo/audio/narracao_26s.mp3";
+const BASE = process.cwd();
+const OUTPUT = path.join(BASE, "video_separelo.mp4");
+const AUDIO = path.join(BASE, "audio", "narracao_26s.mp3");
 
 console.log("Codificando com ffmpeg...");
 try {
