@@ -1,0 +1,12 @@
+file 'scene01_vo.mp3'
+duration 7.008
+file 'scene02_vo.mp3'
+duration 18.528
+file 'scene03_vo.mp3'
+duration 17.472
+file 'scene04_vo.mp3'
+duration 15.552
+file 'scene05_vo.mp3'
+duration 21.936
+file 'scene06_vo.mp3'
+duration 5.736

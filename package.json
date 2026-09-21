@@ -1,0 +1,12 @@
+{
+  "name": "septembro-amarelo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "render": "npx remotion render src/Composition.tsx SeptemAmarelo /home/tiago/septembro_ou Cuidado.mp4 --props '{\"voicePath\":null}'"
+  },
+  "dependencies": {
+    "canvas": "^3.2.3",
+    "remotion": "^4.0.0"
+  }
+}
