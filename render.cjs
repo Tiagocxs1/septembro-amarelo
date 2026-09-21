@@ -6,6 +6,7 @@
  * GitHub Actions: instala deps, renderiza, faz upload do artefato
  */
 
+const { createCanvas } = require('canvas');
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
