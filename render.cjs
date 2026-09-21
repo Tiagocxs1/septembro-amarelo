@@ -128,7 +128,7 @@ function renderScene01(ctx, frame) {
     ctx.save();
     ctx.globalAlpha = titleOp;
     const y = H * 0.15;
-    drawSpacedText(ctx, "SETEMBRO AMARELO", W / 2, y, 96, 800, INK, 6);
+    drawSpacedText(ctx, "SETEMBRO AMARELO", W / 2, y, 96, 800, INK, 2);
     ctx.restore();
   }
 
@@ -463,7 +463,7 @@ function renderScene06(ctx, frame) {
   if (tagOp > 0) {
     ctx.save();
     ctx.globalAlpha = tagOp;
-    drawSpacedText(ctx, "#SetembroAmareloSC", W / 2, H * 0.30, 38, 500, INK, 4);
+    drawSpacedText(ctx, "#SetembroAmareloSC", W / 2, H * 0.30, 38, 500, INK, 2);
     ctx.restore();
   }
 
