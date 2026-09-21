@@ -24,7 +24,7 @@ fs.mkdirSync(FRAMES_DIR, { recursive: true });
 // --- Tinta de ruído para grain ---
 
 function drawGrain(ctx, w, h, intensity = 0.10) {
-  const imageData = ctx.createImageData(w, h);
+  const imageData = ctx.getImageData(0, 0, w, h);
   const data = imageData.data;
   for (let i = 0; i < data.length; i += 4) {
     const noise = (Math.random() - 0.5) * intensity * 255;
