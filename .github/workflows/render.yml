@@ -1,0 +1,37 @@
+name: Render Septembro Amarelo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install system deps (canvas + ffmpeg)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev ffmpeg
+
+      - name: Install npm deps
+        run: npm install
+
+      - name: Render video
+        run: node render.cjs
+
+      - name: Upload video artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: septembro-amarelo-video
+          path: video_separelo.mp4
+          retention-days: 30
