@@ -18,6 +18,7 @@ const DURATION = 30;
 const TOTAL_FRAMES = DURATION * FPS;
 
 const FRAMES_DIR = '/tmp/frames_septembro';
+fs.mkdirSync(FRAMES_DIR, { recursive: true });
 const OUTPUT = path.join(__dirname, 'video_separelo.mp4');
 const AUDIO_FILE = path.join(__dirname, 'audio', 'narracao_30s.mp3');
 
