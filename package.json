@@ -1,12 +1,22 @@
 {
   "name": "septembro-amarelo",
   "version": "1.0.0",
+  "description": "Setembro Amarelo SC — Vídeo informativo 1080×1920 @ 30fps",
   "private": true,
   "scripts": {
-    "render": "npx remotion render src/Composition.tsx SeptemAmarelo /home/tiago/septembro_ou Cuidado.mp4 --props '{\"voicePath\":null}'"
+    "render": "node render.cjs",
+    "render:remotion": "npx remotion render src/Composition.tsx SeptemAmarelo video_separelo.mp4 --props '{\"voicePath\":null}'",
+    "preview": "npx remotion preview src/Composition.tsx SeptemAmarelo"
   },
   "dependencies": {
     "canvas": "^3.2.3",
     "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

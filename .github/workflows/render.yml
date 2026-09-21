@@ -2,32 +2,60 @@ name: Render Septembro Amarelo
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   render:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
-      - name: Install system deps (canvas + ffmpeg)
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev ffmpeg
 
-      - name: Install npm deps
-        run: npm install
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Verify audio file exists
+        run: |
+          if [ ! -f audio/narracao_30s.mp3 ]; then
+            echo "ERROR: Audio file audio/narracao_30s.mp3 not found"
+            exit 1
+          fi
+          echo "Audio file verified: audio/narracao_30s.mp3"
+
+      - name: Verify audio file integrity
+        run: |
+          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1:nokey=1 audio/narracao_30s.mp3
+          if [ $? -ne 0 ]; then
+            echo "ERROR: Audio file is corrupted or invalid"
+            exit 1
+          fi
+          echo "Audio file integrity verified"
 
       - name: Render video
         run: node render.cjs
+
+      - name: Verify output video
+        run: |
+          if [ ! -f video_separelo.mp4 ]; then
+            echo "ERROR: Output video video_separelo.mp4 not created"
+            exit 1
+          fi
+          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1:nokey=1 video_separelo.mp4
+          echo "Output video verified"
 
       - name: Upload video artifact
         uses: actions/upload-artifact@v4
@@ -35,3 +63,22 @@ jobs:
           name: septembro-amarelo-video
           path: video_separelo.mp4
           retention-days: 30
+
+      - name: Create release with video
+        if: github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: video_separelo.mp4
+          tag_name: septembro-amarelo-${{ github.run_number }}
+          name: Septembro Amarelo - Renderização ${{ github.run_number }}
+          body: |
+            Vídeo renderizado automaticamente via GitHub Actions
+            
+            - Duração: 30 segundos
+            - Resolução: 1080x1920
+            - FPS: 30
+            - Áudio: narracao_30s.mp3
+          
+          tag_exists: fail
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
